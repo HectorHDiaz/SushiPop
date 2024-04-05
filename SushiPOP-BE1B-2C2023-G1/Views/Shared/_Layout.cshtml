@@ -1,0 +1,177 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SushiPOP_BE1B_2C2023_G1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SushiPOP_BE1B_2C2023_G1.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+</head>
+<body style="font-family: 'Nunito', sans-serif; margin-bottom: 0px !important">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 px-5 py-0 shadow " style="font-family: 'Nunito', sans-serif; min-height:10vh;">
+            <div class="d-flex flex-row justify-content-between w-75 m-auto align-items-center" style="width: 90% !important">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://ch3301files.storage.live.com/y4mSelubDqvvkgnHVM1JA7GVWHclHYCvooD3G8ssF5KDwEgflER6zfhgbxPR_giqy2CU3rfjMYcSK5WMt3bhCXTWnAaqiAflYNvo_cwI_GMmlzwcvUG7xsW2qVKAEphaRpoO1I5WFXFTOqLPHOWuQjRZu_XcxjXOZBIczS9El6g9Aj2TJ7ahHwX-33FtHGj438O?encodeFailures=1&width=364&height=170" height="48" />
+                </a>
+
+                <div class="justify-content-end navbar-collapse collapse">
+                    <ul class="navbar-nav m-auto position-absolute" style="font-weight:bold; right: 35%;">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Combos" asp-controller="Productos" asp-action="FiltrarProducto">Combos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Piezas" asp-controller="Productos" asp-action="FiltrarProducto">Piezas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Salads" asp-controller="Productos" asp-action="FiltrarProducto">Salads</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Entradas" asp-controller="Productos" asp-action="FiltrarProducto">Entradas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Salsas" asp-controller="Productos" asp-action="FiltrarProducto">Salsas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Bebidas" asp-controller="Productos" asp-action="FiltrarProducto">Bebidas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-nombreCategoria="Postres" asp-controller="Productos" asp-action="FiltrarProducto">Postres</a>
+                            </li>
+                    </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if(User.IsInRole("ADMIN") || User.IsInRole("EMPLEADO"))
+                        {
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Acciones
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li class="nav-item">
+                                        <a style="color:red" class="nav-link" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a style="color:red" class="nav-link" asp-area="" asp-controller="Descuentos" asp-action="Index">Descuentos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a style="color:red" class="nav-link" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:red" asp-area="" asp-controller="Reservas" asp-action="Create">Crear Reservas</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a style="color:red" class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:red" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:red" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="color:red" asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    }
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="" style="display:flex; flex-direction: column; height:100vh; justify-content:space-between">
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer id="footer" class="  align-items-center " style="background-color: rgba(0,0,0,80%); min-height:30vh;">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12" > 
+                    <div>
+                       <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="https://ch3301files.storage.live.com/y4mSelubDqvvkgnHVM1JA7GVWHclHYCvooD3G8ssF5KDwEgflER6zfhgbxPR_giqy2CU3rfjMYcSK5WMt3bhCXTWnAaqiAflYNvo_cwI_GMmlzwcvUG7xsW2qVKAEphaRpoO1I5WFXFTOqLPHOWuQjRZu_XcxjXOZBIczS9El6g9Aj2TJ7ahHwX-33FtHGj438O?encodeFailures=1&width=364&height=170" height="70" />
+                       </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class ="widget widget_link">
+                        <ul class="list-unstyled" >
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Combos" asp-controller="Productos" asp-action="FiltrarProducto">Combos</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Piezas" asp-controller="Productos" asp-action="FiltrarProducto">Piezas</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Salads" asp-controller="Productos" asp-action="FiltrarProducto">Salads</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Entradas" asp-controller="Productos" asp-action="FiltrarProducto">Entradas</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Salsas" asp-controller="Productos" asp-action="FiltrarProducto">Salsas</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Bebidas" asp-controller="Productos" asp-action="FiltrarProducto">Bebidas</a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" asp-area="" asp-route-nombreCategoria="Postres" asp-controller="Productos" asp-action="FiltrarProducto">Postres</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class ="widget widget_contact">
+                        <ul class="list-unstyled">
+                            <li><a class="text-white text-decoration-none" asp-controller="Contactos" asp-action="Index">Contacto</a></li>
+                            <li><a class="text-white text-decoration-none" asp-controller="Pedidos" asp-action="Index">Seguir Pedido</a></li>
+                                @if (User.IsInRole("CLIENTE"))
+                                {
+                                <li><a class="text-white text-decoration-none" asp-controller="Reclamos" asp-action="Details" >Reclamos</a></li>
+                                    
+                                }@if (User.IsInRole("EMPLEADO"))
+                                {
+                                    <li><a class="text-white text-decoration-none" asp-controller="Reclamos" asp-action="Index">Reclamos</a></li>
+
+                                }
+                            <li><a class="text-white text-decoration-none" asp-controller="Home" asp-action="Legales">Legales</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright_text">
+                            <p style="color: #F7F0E5" class="align-self-baseline">&copy; 2023 SushiPopG1 - Desarrollo Web por Grupo 1 ORT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SushiPOP_BE1B_2C2023_G1.Models.Producto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Productos</h1>
+@if (User.IsInRole("EMPLEADO"))
+{    
+    <p>
+        <a class="btn btn-info" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Costo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                    <img  src="@Html.DisplayFor(modelItem => item.Foto)" width="200"/>
+            </td>
+            <td>
+                    @if (item.Stock == 0)
+                    {
+                        <p>"Sin Stock"</p>
+                    }
+                    else
+                    {
+                        
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Id)
+            </td>
+            <td>
+          
+                    
+                @if(User.IsInRole("EMPLEADO")){
+                          <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                @if(User.IsInRole("CLIENTE"))
+                {
+                        @if(item.Stock > 0)
+                        {
+                            <a class="btn btn-success" asp-controller="Carritos" asp-action="agregarProducto" asp-route-productoId="@item.Id">Agregar Al Carrito</a>
+                        }
+                        
+                }
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

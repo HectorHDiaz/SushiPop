@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SushiPOP_BE1B_2C2023_G1.Models.CarritoItem>
+
+@{
+    ViewData["Title"] = "Index";
+    int? carritoId = Model?.FirstOrDefault()?.CarritoId;
+}
+
+<h1>Mi Carrito</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioUnitarioConDescuento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@{
+    decimal contador = 0;
+    foreach (var item in Model) {
+    
+            decimal subTotal = item.PrecioUnitarioConDescuento * item.Cantidad;
+             contador = contador + subTotal;
+            <tr>
+                <td> 
+                    @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioUnitarioConDescuento)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.Producto.Foto)" width="150px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" hidden>Edit</a>
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+}
+    </tbody>
+</table>
+    
+    <h2>Total productos: $@contador </h2>
+<a class="btn btn-danger" asp-controller="Carritos" asp-action="CancelarCarrito" asp-route-carritoId="@carritoId">Cancelar</a> 
+<a class="btn btn-success" asp-controller="Pedidos" asp-action="Create" asp-route-carritoId="@carritoId">Comprar</a>
+

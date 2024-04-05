@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model SushiPOP_BE1B_2C2023_G1.Models.PedidoViewModel
+
+@{
+    ViewData["Title"] = "Create";
+
+
+    ICollection<CarritoItem>? itemsCarrito = Model?.Items;
+
+    
+
+    decimal? montoTotal = @Model.Subtotal + @Model.GastoEnvio;
+
+}
+
+@* <h1>@UserManager.GetUserId(User)</h1> *@
+
+<h4>Pedido</h4>
+<hr />
+
+   
+        <form asp-action="Create">
+
+        <div type="hidden">
+        <input type="hidden" asp-for="CarritoId" class="form-control" value="@Model.CarritoId" />
+        <input type="hidden" asp-for="GastoEnvio" class="form-control" value="@Model.GastoEnvio" />
+        <input type="hidden" asp-for="Subtotal" class="form-control" value="@Model.Subtotal" />
+        
+        </div>
+
+
+
+            <div class=" w-100 d-flex row text-center   ">
+            @foreach (var item in itemsCarrito)
+            {
+
+                <div class="col-3">
+                    <div class="card">
+                      <img  src="@Html.DisplayFor(modelItem => item.Producto.Foto)" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <div  class="card-title">  @Html.DisplayFor(modelItem => item.Producto.Nombre)  </div>
+                      </div>
+                    </div>
+                  </div>
+
+            }
+            </div>
+
+    <div class="card text-center ">
+        <div class="card-body " style="color: black"  >
+            <h5 class="card-title"> @Model.Cliente </h5>
+            <p class="card-text"> @Model.Direccion</p>
+            <p class="card-text">Subtotal: $@Model.Subtotal </p>
+            <p class="card-text">Envio: $@Model.GastoEnvio </p>
+            <p class="card-text">Total: $@montoTotal </p>
+            <div class="form-group">
+            
+                
+            <input type="submit" value="Finalizar Compra" class="btn btn-info" />    
+        </div>
+        </div>
+    </div>
+                   
+        </form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

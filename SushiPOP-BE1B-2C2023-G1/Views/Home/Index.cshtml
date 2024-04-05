@@ -1,0 +1,116 @@
+@model SushiPOP_BE1B_2C2023_G1.Models.Descuento
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="align-content-center" style="font-family: 'Nunito', sans-serif">
+    <section id="promo">
+        <div class="promo-container">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white texto-promo">
+                    @if (@Html.DisplayNameFor(model => model.Dia).Equals(DateTime.Now.DayOfWeek))
+                    {
+                        <p class="text-white">
+                        Hoy <span class="dia-promo"> @Html.DisplayNameFor(model => model.Dia)</span> ahorra un <span class="descuento-promo">@Html.DisplayNameFor(model => model.Porcentaje)</span> <br />
+                        en <a class="combo-promo text-decoration-none" asp-controller="Productos" asp-action="Details" asp-route-id="@Html.DisplayNameFor(model => model.ProductoId)">@Html.DisplayNameFor(model => model.Producto)</a>!
+                        </p>
+                  } else{
+                    <p class="text-white">Hoy es <span class="dia-promo">@DateTime.Now.DayOfWeek</span>. Disfrutá del mejor <br>sushi  <a asp-route-nombreCategoria="Combos" asp-controller="Productos" asp-action="FiltrarProducto" class="combo-promo text-decoration-none">#EnCasa</a> con amigos.</p>
+                  }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="favoritos" class="d-flex flex-column align-items-center justify-content-center pb-4" >
+        <h2 class="titulo-destacado" >Los favoritos <img src="https://ch3301files.storage.live.com/y4mLp6M0C4r5TvnPIbPp2AUV0KNH6ycdlIGLwd1FGcywveeSucqdRBoYCxYcn06_f9_JM0jsp79B9c8R_OGn8hhmLcA0oPbbShlzrsIz4o822RRB3Ecn4iBZUDW3FC9mjSNm6GkqNmg53K_SjtqMgdg3KXeWy2S2LGysp2a9TNgWJrathP7xpCHZlUC-K3TSFVd?encodeFailures=1&width=100&height=100" alt="emoticon-guiño" height="50" /></h2>
+        <div class="d-flex flex-column justify-content-center align-items-center fav-grid-container gap-4" style="width: 80%">
+
+            <div class="d-flex flex-row gap-4 w-100 fav-grid-row">
+                <div class="fav-grid-item-large" style="background-image:url(https://chi01pap001files.storage.live.com/y4mZkw6OvzszolPiyhWA4Hlc50xNOOMJSR2OvCH2RFs79llHvAi3U7Hmf4AA0aMXQP7kOaYIvnD30pQk9R9VtzU1pm7tNnMnfp1lZPnXT6OTtDzm_rWYPJn0IcN5uaWjm5GlLMSfZnz2sHVF0yqO9156PvM5IAF6oibgDOEXdHQM2e7DWhdL_Qt4VNYpwzuYucf?encodeFailures=1&width=750&height=350)">
+                    <div class="mask">
+                        <a asp-route-nombreCategoria="Combos" asp-controller="Productos" asp-action="FiltrarProducto" class="descripcion-favorito">Combo 100% salmón Alaska XL de 40 piezas</a>
+                    </div>
+                </div>
+                <div class="fav-grid-item-short" style="background-image:url(https://ch3301files.storage.live.com/y4mzMBNC8IIIH2UpLcYDlX2n_XwLwHacCfqmFUEMQv-8oSM3egwCj3YxRcFBDtrxQ9PgfEJydz-ICPAU60M0y1sRlFBvchFVAuhNFgO42tyDEclUZcSFdieRqjKHK49OYDmkMVzXdt9ZLBTgGdBJuoHNlt5QkqcSOkdIc_ZFogQPv_qHXeWO7Gh22P-ibznz-7G?encodeFailures=1&width=350&height=350)">
+                    <div class="mask">
+                        <a asp-route-nombreCategoria ="Postres" asp-controller="Productos" asp-action="FiltrarProducto" class="descripcion-favorito">Postre helado OREO</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-row gap-4 w-100 fav-grid-row">
+                <div class="fav-grid-item-short" style="background-image:url(https://ch3301files.storage.live.com/y4mlSV1bWFM3SDoBcIo-lXukOi3_FzyyXot2xFkC-gdAmxzM7MuzadHLrQIa428-yl-wrnOP8gZSUVAwbNN63OJFO0Rr5eNmDRJwRzttppQ7Bm75_GchGJ18QERKuObuZVvIjFwuP-6w7p6TuUXXkud5TzWGUXTo2r6ZGeAjUnS-xCDQPAOBaus2FeqDyUrcGeo?encodeFailures=1&width=350&height=350)">
+                    <div class="mask">
+                        <a asp-controller="Productos" class="descripcion-favorito">Empanaditas chinas de carne</a>
+                    </div>
+                </div>
+                <div class="fav-grid-item-large" style="background-image:url(https://ch3301files.storage.live.com/y4m_iqsAA6ObWeLoTZVC14dBHe_Aqj7CiV9cw2LSd0S0_czpQ78EogpZlXQaSg9CeiZ_WVLiEO0mJYVybnuKLZCA0nNIMdnx4YAqg7gSe8Jd3NdHiopyQAUuC8uNwZWNauLklcyI_ebfxunYol7ZjJcL17FCUot2pqmPMeMKoLIeT_N93ghw_q9LHkPX1VnfrLS?encodeFailures=1&width=750&height=350)">
+                    <div class="mask">
+                        <a asp-controller="Productos" class="descripcion-favorito">Langostinos rebozados en panko fritos con salsa de tamarindo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="atencion">
+        <div class="call-to-action-container ">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="d-flex flex-row justify-content-center align-items-center">
+
+                    <p class="texto-call-to-action">
+                        Hoy <span class="span-call-to-action">@Html.DisplayNameFor(model => model.Dia)</span> atendemos de 19 a 23 horas por WhatsApp <a class="span-call-to-action-link text-decoration-none" href="https://api.whatsapp.com/send?phone=5491134861834" target="_blank">+541140044004</a>
+                    </p>
+
+                    <img class="img-delivery-guy" src="https://ch3301files.storage.live.com/y4mgnwEOjg4cF8OoKsPXAxTBsYbr_Kcv9MG3a6-h5soapYT7xxS4iVec3m9r-zVefO_8x5ZLtUtWi4h0_kngeUYpFso4mjiS841cpWqHpK7JLWXd-fyZW7ffr1FocsvhQ-TE5rymbWC67wVYczPiHqQGCuFNa5rpDWRVb2laCAUFD8-eejs5DpsO2qgXV4untD9?encodeFailures=1&width=560&height=375" alt="delivery guy" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="locales" class="d-flex flex-column align-items-center justify-content-center">
+        <h2 class="titulo-destacado">Nuestros locales </h2>
+        <div class="d-flex flex-column justify-content-center align-items-center fav-grid-container gap-4" style="width: 80%">
+            <div class="d-flex flex-row gap-4 w-100 fav-grid-row" style="height: 300px">
+                <div class="tarjeta-local">
+                    <img class="img-tarjeta-local" src="https://chi01pap002files.storage.live.com/y4mR43FNqg3ABDVD0dt8jqGpzcG-Cz9kyD1O_Gu0K1IUbrfnuRwo4IAAUh3L0BQYW25WA6PNFiE7Hz-uhrz8mAuEQ9S6w7pykwfXN3u75A9xsO-_KYc4Eqb9GgwxjT4vGDUCH4cFsnF7uWxvHHR6iPpFS70z1zyMg01xJCc5OFyF_BG19ZIPDsxh9M271d9tGyJ?encodeFailures=1&width=400&height=265" alt="" />
+                    <div class="descripcion-local">
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-nombreLocal="Palermo">Palermo</a>
+                        <p>Alto Palermo local 1</p>
+                    </div>
+
+                </div>
+                <div class="tarjeta-local">
+                    <img class="img-tarjeta-local" src="https://ch3301files.storage.live.com/y4m7Ns5H4zTEXFR37SP4mfVxtdMB45X5JwXJKVjtFo5DlwXeszAJOjCjrfXV-r5Dum7eKsrKhOlRYsC766eo0mW3grLP-WXfkdLm55murqsyc3J5z8uP68neWh9uw_sFK65fLS_906028-3B-J-uleJsLtw7ArZZmUnJZCbdgrzlwxkl7-AeUgFN8WVdS2il6Pv?encodeFailures=1&width=400&height=265" alt="" />
+                    <div class="descripcion-local">
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-nombreLocal="Recoleta">Recoleta</a>
+                        <p>Callao 986</p>
+                    </div>
+
+                </div>
+                <div class="tarjeta-local">
+                    <img class="img-tarjeta-local" src="https://chi01pap002files.storage.live.com/y4mBL8kl6MRVMEZUCagyWkbRJzEGObty6Ao1p174StJnFVAphvXnUklpqFMVKQ21YCBvzXnEgpkg7kDEz8lCwxRs3KXuAjaaoU__MGAgbGFHXJuwh4SmN8XIHhyVYKWxRsG0m6RM4Em8_34fHaSf0eUspS9yIGQaReRT8r9G2HicpoeerdyzdJwnV62Uz1lo6OU?encodeFailures=1&width=400&height=265" alt="" />
+                    <div class="descripcion-local">
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-nombreLocal="Belgrano">Belgrano</a>
+                        <p>Av. Monroe 2401</p>
+                    </div>
+
+                </div>
+                <div class="tarjeta-local">
+                    <img class="img-tarjeta-local" src="https://ch3301files.storage.live.com/y4mUNI0zrcV_iGIkL7WpSKKNV2nIFOL7Dh6xzXKJ30j_37SJUwH7z8EwyapatxlVY6C0fxv1SOufz_pwo-gZ2umROkOHkt2w_w0rAGlLRh9b9-CNiPyQzu2AV2EEdDNFCnIbR_uPEi6nBVzEJHjYatIs4ahvykNgJ3_cILAmorMqbQNztu3WK1xiiHS7ZmB6umP?encodeFailures=1&width=400&height=265" alt="" />
+                    <div class="descripcion-local">
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-nombreLocal="Caballito">Caballito</a>
+                        <p>Av. Acoyte 234</p>
+                    </div>
+
+                </div>
+            </div>
+            <p class="p-sin-destacar">Lunes a Viernes de 11 a 15 hs. y de 18 a 23:30 hs. Sábado y domingo de 17 a 00 hs.</p>
+        </div>
+    </section>
+</div>
+
+
+

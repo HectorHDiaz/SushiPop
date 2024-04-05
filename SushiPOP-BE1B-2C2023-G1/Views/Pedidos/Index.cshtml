@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SushiPOP_BE1B_2C2023_G1.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pedidos</h1>
+
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NroPedido)
+            </th>       
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCompra)
+            </th>
+            @if(User.IsInRole("EMPLEADO"))
+            {
+                <th>
+                        @Html.DisplayNameFor(model => model.Carrito.Cliente.Nombre)
+                </th>
+                
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                Productos
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCompra)
+            </td>
+                @if (User.IsInRole("EMPLEADO"))
+                {
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Carrito.Cliente.Nombre)
+                    </th>
+
+                }
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            
+                <td>
+                    @foreach(var itemsProducto in item.Carrito.Items)
+                    {
+                        <p>@itemsProducto.Producto.Nombre , </p>
+                       
+                    }
+                </td>
+
+
+            <td>
+                    @if (User.IsInRole("EMPLEADO"))
+                    {
+                        <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a>
+                    }
+                    @if (User.IsInRole("CLIENTE"))
+                    {
+                        <a asp-action="Cancelar" asp-controller="Pedidos" class="btn btn-danger" asp-route-pedidoId="@item.Id">Cancelar</a>
+                    }
+                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+        
+
+    </tbody>
+</table>

@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+        @if (User.IsInRole("CLIENTE"))
+        {
+            <li class="nav-item">
+                <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            </li>
+
+            <i class="nav-item p-1">
+                <a class="bi bi-cart-fill " style="color:#EC1C24 ; font-size:28px"  asp-area="" asp-controller="CarritoItems" asp-action="Index"></a>
+            </i>
+            <li class="nav-item p-1">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="bi bi-person-fill" style="color:#EC1C24 ; font-size:18px" id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        @if (User.IsInRole("ADMIN") || User.IsInRole("EMPLEADO"))
+        {
+            <li class="nav-item">
+                <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            </li>
+            <li class="nav-item p-1">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="bi bi-person-fill" style="color:#EC1C24; font-size:18px" id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+
+        }
+    }
+else
+{
+  
+    <li class="nav-item p-1">
+            <a class="bi bi-person-fill" style="color:#EC1C24; font-size:28px" id="register" asp-area="Identity" asp-page="/Account/Register"></a>
+    </li>
+        <li class="nav-item p-1">
+            <a class="bi bi-cart-fill" style="color:#EC1C24; font-size:28px" id="login" asp-area="Identity" asp-page="/Account/Login"></a>
+    </li>
+}
+</ul>
+
